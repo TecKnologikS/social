@@ -21,7 +21,7 @@
 
 
 		const $STATUS_WAIT = 10;
-		const $STATUS_OK = 10;
+		const $STATUS_OK = 20;
 		//Status : 10 : en cours (demande) et 20 : friends
 
 		function Friend()
@@ -39,5 +39,16 @@
 		$friend->id_person2 = $row[Friend::BDD_ID_PERSON2];
 		$friend->status = $row[Friend::BDD_STATUS];
 	} 
+
+	function isFriend($id_person1, $id_person2)
+	{
+		$req = $bdd->query("SELECT * friend WHERE id_person1=".$id_person1." AND id_person2 = ".$id_person2."");
+			$data = $req->fetchAll();
+			if(count($data) > 0){
+				return Friend::ADD_FRIEND_OK;
+			} else {
+				return Friend::ADD_FRIEND_ERROR;
+			}
+	}
 
 ?>

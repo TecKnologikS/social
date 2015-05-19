@@ -40,4 +40,15 @@
 		$friend->status = $row[Friend::BDD_STATUS];
 	} 
 
+	function isFriend($id_person1, $id_person2)
+	{
+		$req = $bdd->query("SELECT * friend WHERE (id_person1=".$id_person1." AND id_person2 = ".$id_person2.") OR (id_person1=".$id_person2." AND id_person2 = ".$id_person1.")");
+			$data = $req->fetchAll();
+			if(count($data) > 0){
+				return Friend::ADD_FRIEND_OK;
+			} else {
+				return Friend::ADD_FRIEND_ERROR;
+			}
+	}
+
 ?>
