@@ -6,7 +6,7 @@
 	{
 		echo add($_GET["id1"], $_GET["id2"]);
 	} else {
-		echo "ERROR";
+		echo "ERROR"
 	}
 
 	function add($id_me, $id_friend)

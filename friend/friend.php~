@@ -21,7 +21,7 @@
 
 
 		const $STATUS_WAIT = 10;
-		const $STATUS_OK = 20;
+		const $STATUS_OK = 10;
 		//Status : 10 : en cours (demande) et 20 : friends
 
 		function Friend()
