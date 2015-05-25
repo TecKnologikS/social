@@ -1,0 +1,9 @@
+#---------------------------------
+# Répertoire : /user/
+#---------------------------------
+
+Options +FollowSymlinks
+
+RewriteEngine on
+
+RewriteRule ^test\.html$ /getUser.php?id=1

@@ -1,0 +1,4 @@
+
+Options +FollowSymlinks
+RewriteEngine On
+RewriteRule ^test\.html$ /index.php [L]
