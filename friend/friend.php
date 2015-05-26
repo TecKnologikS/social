@@ -10,6 +10,7 @@
 		const DELETE_FRIEND_ERROR = 105;
 		const ACCEPT_FRIEND_OK = 106;
 		const ACCEPT_FRIEND_ERROR = 107;
+		const NOT_FRIEND = 108;
 
 		const BDD_ID_PERSON1 = "id_person1";
 		const BDD_ID_PERSON2 = "id_person2";

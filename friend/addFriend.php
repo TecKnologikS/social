@@ -15,19 +15,21 @@ error_reporting(-1);
 
 	function add($id_me, $id_friend)
 	{
-		echo '1';
 		$bdd = getPDO();
 
 		if (!isFriend($id_me, $id_friend)) {
-			$req = $bdd->query("INSERT INTO friend (id_person1, id_person2, status) VALUES(".$id_me.", ".$id_friend.", ".Friend::STATUS_WAIT.");");
-			$data = $req->fetchAll();
-			if(count($data) > 0){
+			$req = $bdd->prepare("INSERT INTO friend (id_person1, id_person2, status) VALUES(".$id_me.", ".$id_friend.", ".Friend::STATUS_WAIT.");");
+			$result = $req->execute();
+			
+			if ($result == 1)
+			{
 				return Friend::ADD_FRIEND_OK;
-			} else {
-				return Friend::ADD_FRIEND_ERROR;
-			}
+			} else { 
+				return Friend::ADD_FRIEND_ERROR; 
+			}	
+			
 		} else {
-			return 	Friend::ALREADY_FRIEND;
+			return 	"ERROR";
 		}
 	}
 
