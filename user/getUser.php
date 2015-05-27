@@ -2,11 +2,31 @@
 	include("user.php");
 	include("UserDAO.php");
 	if (isset($_GET["id"]))	{
-		echo json_encode(getUserByID($_GET["id"]));
+		if (isset($_GET["output"]))
+		{
+			if ($_GET["output"] == "xml")
+			{
+				echo wddx_serialize_value(getUserByID($_GET["id"]));
+			} else {
+				echo json_encode(getUserByID($_GET["id"]));
+			}
+		} else {
+			echo json_encode(getUserByID($_GET["id"]));
+		}
 	}
 
 	if (isset($_GET["name"]))	{
-		echo json_encode(getUserByName($_GET["name"]));
+		if (isset($_GET["output"]))
+		{
+			if ($_GET["output"] == "xml")
+			{
+				echo wddx_serialize_value(getUserByName($_GET["name"]));
+			} else {
+				echo json_encode(getUserByName($_GET["name"]));
+			}
+		} else {
+			echo json_encode(getUserByName($_GET["name"]));
+		}
 	}
 
 	

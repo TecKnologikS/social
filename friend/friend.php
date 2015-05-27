@@ -53,4 +53,16 @@
 			}
 	}
 
+	function getIDUser($token)
+	{
+		$bdd = getPDO();
+		$retour = "";
+		$req = $bdd->query("SELECT * FROM session WHERE token='".$token."'");
+		if($resultat = $req->fetch() )
+		{
+		    $retour = $resultat["id_user"];
+		}
+		$req->closeCursor();
+		return $retour;
+	}
 ?>

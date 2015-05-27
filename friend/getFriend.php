@@ -4,16 +4,27 @@
 	include("friend.php");
 	include("../user/user.php");
 	
-	if(isset($_GET["id_me"]) && isset($_GET["id_friend"]))
+	if(isset($_GET["token"]) && isset($_GET["id_friend"]))
 	{
-		echo json_encode(get($_GET["id_me"], $_GET["id_friend"]));
+		if (isset($_GET["output"]))
+		{
+			if ($_GET["output"] == "xml")
+			{
+				echo wddx_serialize_value(get($_GET["token"], $_GET["id_friend"]));
+			} else {
+				echo json_encode(get($_GET["token"], $_GET["id_friend"]));
+			}
+		} else {
+			echo json_encode(get($_GET["token"], $_GET["id_friend"]));
+		}
 	} else {
 		echo "ERROR";
 	}
 
-	function get($id_me, $id_friend)
+	function get($token, $id_friend)
 	{
 		$bdd = getPDO();
+		$id_me = getIDUser($token);
 		if (isFriend($id_me, $id_friend)) {
 			$user = new User();
 			$req = $bdd->query("SELECT * FROM user WHERE id=".$id_friend."");

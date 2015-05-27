@@ -4,17 +4,28 @@
 	include("friend.php");
 	include("../user/user.php");
 	
-	if(isset($_GET["id_me"]) && isset($_GET["offset"]) && isset($_GET["limit"]))
+	if(isset($_GET["token"]) && isset($_GET["offset"]) && isset($_GET["limit"]))
 	{
 		$end = $_GET["offset"] + $_GET["limit"];
-		echo json_encode(get($_GET["id_me"], $_GET["offset"], $end));
+		if (isset($_GET["output"]))
+		{
+			if ($_GET["output"] == "xml")
+			{
+				echo wddx_serialize_value(get($_GET["token"], $_GET["offset"], $end));
+			} else {
+				echo json_encode(get($_GET["token"], $_GET["offset"], $end));
+			}
+		} else {
+			echo json_encode(get($_GET["token"], $_GET["offset"], $end));
+		}
 	} else {
 		echo "ERROR";
 	}
 
-	function get($id_me, $start, $end)
+	function get($token, $start, $end)
 	{
 		$bdd = getPDO();
+		$id_me = getIDUser($token);
 		$friends = array();
 		$req = $bdd->query("SELECT DISTINCT u.* FROM user u INNER JOIN friend f ON f.id_person1=".$id_me." OR f.id_person2=".$id_me." LIMIT ".$start.", ".$end."");
 		while($resultat = $req->fetch())

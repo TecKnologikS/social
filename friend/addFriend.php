@@ -6,17 +6,17 @@ error_reporting(-1);
 	include("../pdo.php");
 		
 	
-	if(isset($_GET["id1"]) && isset($_GET["id2"]))
+	if(isset($_GET["token"]) && isset($_GET["id"]))
 	{
-		echo add($_GET["id1"], $_GET["id2"]);
+		echo add($_GET["token"], $_GET["id"]);
 	} else {
 		echo "ERROR";
 	}
 
-	function add($id_me, $id_friend)
+	function add($token, $id_friend)
 	{
 		$bdd = getPDO();
-
+		$id_me = getIDUser($token);
 		if (!isFriend($id_me, $id_friend)) {
 			$req = $bdd->prepare("INSERT INTO friend (id_person1, id_person2, status) VALUES(".$id_me.", ".$id_friend.", ".Friend::STATUS_WAIT.");");
 			$result = $req->execute();
