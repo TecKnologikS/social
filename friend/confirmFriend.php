@@ -14,7 +14,8 @@
 	{
 		$bdd = getPDO();
 		$id_me = getIDUser($token);
-		if (isFriend($id_me, $id_friend)) {
+		if (!isFriend($id_me, $id_friend)) {
+			//ECHO "UPDATE friend SET status=".Friend::STATUS_OK." WHERE (id_person1=".$id_me." AND id_person2=".$id_friend.") OR (id_person1=".$id_friend." AND id_person2=".$id_me.")";
 			$req = $bdd->prepare("UPDATE friend SET status=".Friend::STATUS_OK." WHERE (id_person1=".$id_me." AND id_person2=".$id_friend.") OR (id_person1=".$id_friend." AND id_person2=".$id_me.")");
 			$result = $req->execute();
 			if ($result == 1) {

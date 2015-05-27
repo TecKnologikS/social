@@ -27,7 +27,8 @@
 		$bdd = getPDO();
 		$id_me = getIDUser($token);
 		$friends = array();
-		$req = $bdd->query("SELECT DISTINCT u.* FROM user u INNER JOIN friend f ON f.id_person1=".$id_me." OR f.id_person2=".$id_me." LIMIT ".$start.", ".$end."");
+		//echo "SELECT DISTINCT u.* FROM user u INNER JOIN friend f ON f.id_person1=".$id_me." OR f.id_person2=".$id_me." LIMIT ".$start.", ".$end."";
+		$req = $bdd->query("SELECT DISTINCT u.* FROM user u INNER JOIN friend f ON (f.id_person1 = u.id) OR (f.id_person2 = u.id) WHERE u.id=".$id_me." LIMIT ".$start.", ".$end."");
 		while($resultat = $req->fetch())
 		{
 			$user = new User();
